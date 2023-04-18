@@ -1,22 +1,21 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import { Container } from 'react-bootstrap';
+import Header from './components/Header.js'
+import Main from './components/Main';
+import Footer from './components/Footer.js'
 
 function App() {
   return (
+    <Container Fluid className="mb-3">
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <Header />
+    <Main />
+    <Footer />
+    
     </div>
+    </Container>
   );
 }
 
