@@ -30,3 +30,6 @@ Start time: __1400___
 Finish time: _____
 
 Actual time needed to complete: _____
+
+
+![Alt text](https://files.slack.com/files-pri/T039KG69K-F053N4CC6M8/image.png)
