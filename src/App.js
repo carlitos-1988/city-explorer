@@ -7,11 +7,11 @@ import Footer from './components/Footer.js'
 
 function App() {
   return (
-    <Container Fluid className="mb-3">
+    <Container >
     <div className="App">
     
-    <Header />
-    <Main />
+    <Header Fluid className="d-flex justify-content-center align-items-center vh-100" />
+    <Main Fluid className="d-flex justify-content-center align-items-center vh-100"/>
     <Footer />
     
     </div>

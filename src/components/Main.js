@@ -37,23 +37,25 @@ class Main extends React.Component {
 
 
             let cityData = await axios.get(url);
-            console.log(cityData.data[0]);
+            //console.log(cityData.data[0]);
             let returnedCity= cityData.data[0].display_name.split(",")[0];
 
             let lattitudeForCity = cityData.data[0].lat;
             let cityLongitude = cityData.data[0].lon;
-            console.log((lattitudeForCity + " ========= "+ cityLongitude));
-            let tempImageUrl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATION_IQ_API_KEY}&center=${lattitudeForCity},${cityLongitude}&zoom=18`;
+            
+            let tempImageUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_IQ_API_KEY}&center=${lattitudeForCity},${cityLongitude}&zoom=12&size=500x500`;
+            // console.log(tempImageUrl);
             // let newImgURL = `https://maps.locationiq.com/v3/staticmap?key={process/env.REACT_APP_LOCATION_IQ_API_KEY}=47.6062,122.3321&zoom=13`;
 
-            let imageData = await axios.get(tempImageUrl);
+            let imageDataResponce = await axios.get(tempImageUrl);
+            console.log(imageDataResponce.config.url);
 
 
             this.setState({
                 cityData: cityData.data[0],
                 error: false,
                 simpleCityName: returnedCity, 
-                imageUrl: imageData
+                imageUrl: imageDataResponce.config.url
             })
         } catch (error) {
             //console.log("error retrieving info");
@@ -68,7 +70,7 @@ class Main extends React.Component {
         return (
             <>
             
-            <Container>
+            <Container d-flex className= "justify-content-center align-items-center">
                 <Form onSubmit={this.getCityData} >
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         {/* <Form.Label>Enter City</Form.Label> */}
@@ -100,7 +102,7 @@ class Main extends React.Component {
                     :
                         <Container>
                         <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top"  src="{this.state.imageUrl}"/>
+                        <Card.Img variant="top"  src={this.state.imageUrl}/>
                             <Card.Body>
                                 <Card.Title>{this.state.cityData.display_name}</Card.Title>
                                 <Card.Text>
