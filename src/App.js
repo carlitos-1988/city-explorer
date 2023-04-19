@@ -4,15 +4,17 @@ import { Container } from 'react-bootstrap';
 import Header from './components/Header.js'
 import Main from './components/Main';
 import Footer from './components/Footer.js'
+import Weather from './components/Weather';
 
 function App() {
   return (
-    <Container className="mybody">
+    <Container className="flex-container">
     <div className="App">
     
-    <Header Fluid className="d-flex justify-content-center align-items-center vh-100" />
-    <Main Fluid className="d-flex justify-content-center align-items-center vh-100"/>
-    <Footer />
+    <Header  className="flex-items"/>
+    <Main className="flex-items"/>
+    <Weather className="flex-items"/>
+    <Footer className="flex-items"/>
     
     </div>
     </Container>

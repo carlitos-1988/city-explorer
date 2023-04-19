@@ -35,9 +35,11 @@ class Main extends React.Component {
         try {
             let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATION_IQ_API_KEY}&q=${this.state.city}&format=json`;
 
+            // let newUrl = `http://localhost:3001/weather?lat=47.60621&lon=-122.33207&city=Seattle`
+
 
             let cityData = await axios.get(url);
-            //console.log(cityData.data[0]);
+            console.log(cityData.data);
             let returnedCity= cityData.data[0].display_name.split(",")[0];
 
             let lattitudeForCity = cityData.data[0].lat;
@@ -70,7 +72,7 @@ class Main extends React.Component {
         return (
             <>
             
-            <Container d-flex className= "justify-content-center align-items-center">
+            <Container >
                 <Form onSubmit={this.getCityData} >
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         {/* <Form.Label>Enter City</Form.Label> */}
