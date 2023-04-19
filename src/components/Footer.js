@@ -1,9 +1,12 @@
 import React from "react";
+import { ModalFooter } from "react-bootstrap";
 
 class Footer extends React.Component{
     render(){
         return(
-            <h5>This is my footer</h5>
+            <ModalFooter>
+            This is my footer
+            </ModalFooter>
         )
     }
 }

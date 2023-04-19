@@ -9,10 +9,10 @@ export default class Header extends Component {
     // }
     render(){
         return(
-            <Navbar bg="dark">
+            <Navbar className='mybody'>
             <Container>
               <Navbar.Brand href="#home">
-               My Sample Header
+               Welcome
               </Navbar.Brand>
             </Container>
           </Navbar>
