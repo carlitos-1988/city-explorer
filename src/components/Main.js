@@ -59,13 +59,13 @@ class Main extends React.Component {
             let imageDataResponce = await axios.get(tempImageUrl);
             //console.log(imageDataResponce.config.url);
 
-            let newUrl = `http://localhost:3001/weather?city=${returnedCity}`;
+            let newUrl = `http://${process.env.REACT_APP_SERVER}/weather?city=${returnedCity}`;
             let newWeatherData = await axios.get(newUrl);
 
             console.log(newWeatherData);
 
 
-            let movieURL = `http://localhost:3001/movies?city=${returnedCity}`;
+            let movieURL = `http://${process.env.REACT_APP_SERVER}/movies?city=${returnedCity}`;
             let returnedMovieData = await axios.get(movieURL);
             console.log(returnedMovieData.data);
 
