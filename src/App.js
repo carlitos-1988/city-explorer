@@ -7,10 +7,10 @@ import Footer from './components/Footer.js'
 
 function App() {
   return (
-    <Container className="flex-container">
+    <Container className='App'>
     <div className="App">
     
-    <Header  className="flex-items"/>
+    <Header  className="App-header"/>
     <Main className="flex-items"/>
     {/* <Weather className="flex-items"/> */}
     <Footer className="flex-items"/>

@@ -5,7 +5,7 @@ class Footer extends React.Component{
     render(){
         return(
             <ModalFooter>
-            This is my footer
+            Made by Juan Olmedo 2023
             </ModalFooter>
         )
     }
