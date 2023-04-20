@@ -1,47 +1,37 @@
 import {Component} from "react";
-import axios from "axios";
-import { Button } from "react-bootstrap";
-import { ListGroup } from "react-bootstrap";
+// import axios from "axios";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 
 class Weather extends Component{
     constructor(props){
         super(props);
         this.state = {
-            error : false,
+            error : true,
             weatherData : []
         };
     }
 
+// getApiData = async(e)=>{
+//     e.preventDefault();
 
-
-getApiData = async(e)=>{
-    e.preventDefault();
-
-    try{
-        let newUrl = `http://localhost:3001/weather?lat=47.60621&lon=-122.33207&city=Seattle`;
-        let newWeatherData = await axios.get(newUrl);
-        console.log(Array.from(newWeatherData.data));
-        this.setState({
-            weatherData: newWeatherData.data,
-            error : true
-        })
-    }catch(error){
-        console.log(error.message)
-    }
-}
+//     try{
+//         let newUrl = `http://localhost:3001/weather&city=${this.props.citySearch}`;
+//         let newWeatherData = await axios.get(newUrl);
+//         console.log(newWeatherData.data);
+//         this.setState({
+//             weatherData: newWeatherData.data,
+//             error : true
+//         })
+//     }catch(error){
+//         console.log(error.message)
+//     }
+// }
 
     render(){
     return(
         <>
-        {
-        <Button variant="primary" type="submit" onClick={this.getApiData}>
-        Get Weather Data
-        </Button>
-        }
-        {
-            this.state.error?
-            <ListGroup>
+            {/* <ListGroup>
             {this.state.weatherData.map((createWeatherData) => {
             const hasDate = createWeatherData.hasOwnProperty('date');
             const hasHighTemp = createWeatherData.hasOwnProperty('hightemp');
@@ -57,14 +47,17 @@ getApiData = async(e)=>{
             } else {
               return null;
             }
-          })}
-
+          })} */}
+        <ListGroup>
+          {this.props.allWeatherData.map((mapData)=>(
+            <>
+            <ListGroupItem key={mapData.date}>
+                {mapData.description} on {mapData.date}
+            </ListGroupItem>
+            </>
+          ))}
 
         </ListGroup>
-            :
-            <p>press the buttton</p>
-        
-        }
         </>
     )
 }

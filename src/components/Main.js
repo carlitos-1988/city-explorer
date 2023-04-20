@@ -5,6 +5,7 @@ import Card  from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
 import { Container } from "react-bootstrap";
+import Weather from "./Weather";
 
 class Main extends React.Component {
     constructor(props) {
@@ -15,7 +16,8 @@ class Main extends React.Component {
             error: false,
             errorMsg: "",
             simpleCityName:"",
-            imageUrl:""
+            imageUrl:"",
+            weatherData : []
             
         };
     }
@@ -29,6 +31,11 @@ class Main extends React.Component {
         
     };
 
+    getAllData = (e) =>{
+        this.getCityData(e);
+        //this.getLocalApiData(e);
+    }
+
     getCityData = async (e) => {
         // console.log("made it here");
         e.preventDefault();
@@ -39,7 +46,7 @@ class Main extends React.Component {
 
 
             let cityData = await axios.get(url);
-            console.log(cityData.data);
+            //console.log(cityData.data);
             let returnedCity= cityData.data[0].display_name.split(",")[0];
 
             let lattitudeForCity = cityData.data[0].lat;
@@ -50,14 +57,20 @@ class Main extends React.Component {
             // let newImgURL = `https://maps.locationiq.com/v3/staticmap?key={process/env.REACT_APP_LOCATION_IQ_API_KEY}=47.6062,122.3321&zoom=13`;
 
             let imageDataResponce = await axios.get(tempImageUrl);
-            console.log(imageDataResponce.config.url);
+            //console.log(imageDataResponce.config.url);
+
+            let newUrl = `http://localhost:3001/weather?city=${returnedCity}`;
+            let newWeatherData = await axios.get(newUrl);
+
+            console.log(newWeatherData);
 
 
             this.setState({
                 cityData: cityData.data[0],
                 error: false,
                 simpleCityName: returnedCity, 
-                imageUrl: imageDataResponce.config.url
+                imageUrl: imageDataResponce.config.url,
+                weatherData : newWeatherData.data
             })
         } catch (error) {
             //console.log("error retrieving info");
@@ -73,7 +86,7 @@ class Main extends React.Component {
             <>
             
             <Container >
-                <Form onSubmit={this.getCityData} >
+                <Form onSubmit={this.getAllData} >
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         {/* <Form.Label>Enter City</Form.Label> */}
                         <Form.Control
@@ -84,10 +97,6 @@ class Main extends React.Component {
                             style={{ width: "32rem"}}
                         />
                     </Form.Group>
-                    {/* <Form.Group
-                        className="mb-3"
-                        controlId="formBasicCheckbox"
-                    ></Form.Group> */}
                     <Button variant="primary" type="submit">
                         Explore
                     </Button>
@@ -112,6 +121,7 @@ class Main extends React.Component {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
+                        <Weather citySearch={this.state.simpleCityName} allWeatherData={this.state.weatherData}/>
                         </Container> 
                 }
             </>
