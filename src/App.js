@@ -4,7 +4,6 @@ import { Container } from 'react-bootstrap';
 import Header from './components/Header.js'
 import Main from './components/Main';
 import Footer from './components/Footer.js'
-import Weather from './components/Weather';
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
     
     <Header  className="flex-items"/>
     <Main className="flex-items"/>
-    <Weather className="flex-items"/>
+    {/* <Weather className="flex-items"/> */}
     <Footer className="flex-items"/>
     
     </div>
