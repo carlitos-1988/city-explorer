@@ -6,6 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import axios from "axios";
 import { Container } from "react-bootstrap";
 import Weather from "./Weather";
+import CityImage from "./CityImage";
 
 class Main extends React.Component {
     constructor(props) {
@@ -17,7 +18,8 @@ class Main extends React.Component {
             errorMsg: "",
             simpleCityName:"",
             imageUrl:"",
-            weatherData : []
+            weatherData : [],
+            movieData: []
             
         };
     }
@@ -43,8 +45,6 @@ class Main extends React.Component {
             let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATION_IQ_API_KEY}&q=${this.state.city}&format=json`;
 
             // let newUrl = `http://localhost:3001/weather?lat=47.60621&lon=-122.33207&city=Seattle`
-
-
             let cityData = await axios.get(url);
             //console.log(cityData.data);
             let returnedCity= cityData.data[0].display_name.split(",")[0];
@@ -65,18 +65,25 @@ class Main extends React.Component {
             console.log(newWeatherData);
 
 
+            let movieURL = `http://localhost:3001/movies?city=${returnedCity}`;
+            let returnedMovieData = await axios.get(movieURL);
+            console.log(returnedMovieData.data);
+
+
             this.setState({
                 cityData: cityData.data[0],
                 error: false,
                 simpleCityName: returnedCity, 
                 imageUrl: imageDataResponce.config.url,
-                weatherData : newWeatherData.data
+                weatherData : newWeatherData.data,
+                movieData: returnedMovieData.data
             })
         } catch (error) {
             //console.log("error retrieving info");
             this.setState({
                 error: true,
                 errorMsg: error.message
+                
             })
         }
     };
@@ -122,6 +129,8 @@ class Main extends React.Component {
                             </Card.Body>
                         </Card>
                         <Weather citySearch={this.state.simpleCityName} allWeatherData={this.state.weatherData}/>
+                        <CityImage allmovieData={this.state.movieData}/>
+                        
                         </Container> 
                 }
             </>

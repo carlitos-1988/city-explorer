@@ -4,13 +4,13 @@ import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 
 class Weather extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            error : true,
-            weatherData : []
-        };
-    }
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         error : true,
+    //         weatherData : []
+    //     };
+    // }
 
 // getApiData = async(e)=>{
 //     e.preventDefault();
@@ -49,15 +49,17 @@ class Weather extends Component{
             }
           })} */}
         <ListGroup>
+        
           {this.props.allWeatherData.map((mapData)=>(
             <>
-            <ListGroupItem key={mapData.date}>
+            <ListGroupItem>
                 {mapData.description} on {mapData.date}
-            </ListGroupItem>
+        </ListGroupItem>
             </>
           ))}
 
         </ListGroup>
+        
         </>
     )
 }
