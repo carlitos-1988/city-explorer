@@ -1,11 +1,11 @@
 .App {
   text-align: center;
-  background-color:rgb(146, 63, 61)
+  background-color:#E4DCCF
 }
 
 
 .App-header {
-  background-color: #282c34;
+  background-color: #E4DCCF;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,8 +19,16 @@
   color: #61dafb;
 }
 
-.mybody{
-  background-color:#cb794c;
+.myheader{
+  color:#e28e07;
+  width: 100vw;
+  text-align: center;
+  
 }
+
+.my-search{
+  margin-top: 65px;
+}
+
 
 

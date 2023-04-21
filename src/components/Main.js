@@ -7,6 +7,8 @@ import axios from "axios";
 import { Container } from "react-bootstrap";
 import Weather from "./Weather";
 import CityImage from "./CityImage";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 class Main extends React.Component {
     constructor(props) {
@@ -100,7 +102,9 @@ class Main extends React.Component {
         return (
             <>
             
-            <Container >
+            <Container fluid className="my-search">
+                <Row>
+                    <Col>
                 <Form onSubmit={this.getCityData} >
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Control
@@ -110,10 +114,16 @@ class Main extends React.Component {
                             style={{ width: "32rem"}}
                         />
                     </Form.Group>
+                </Form>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
                     <Button variant="primary" type="submit">
                         Explore
                     </Button>
-                </Form>
+                    </Col>
+                </Row>
             </Container>
                 
                 {
