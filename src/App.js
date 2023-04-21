@@ -10,11 +10,9 @@ function App() {
     <Container className='App'>
     <div className="App">
     
-    <Header  className="App-header"/>
-    <Main className="flex-items"/>
-    {/* <Weather className="flex-items"/> */}
-    <Footer className="flex-items"/>
-    
+    <Header  className="header"/>
+    <Main />
+    <Footer />
     </div>
     </Container>
   );

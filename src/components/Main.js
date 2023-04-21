@@ -28,58 +28,38 @@ class Main extends React.Component {
         e.preventDefault();
         this.setState({
             city: e.target.value,
-        });
-        // console.log(this.city);
-        
+        });    
     };
 
-    getAllData = (e) =>{
-        this.getCityData(e);
-        //this.getLocalApiData(e);
-    }
-
     getCityData = async (e) => {
-        // console.log("made it here");
         e.preventDefault();
         try {
-            let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATION_IQ_API_KEY}&q=${this.state.city}&format=json`;
 
-            // let newUrl = `http://localhost:3001/weather?lat=47.60621&lon=-122.33207&city=Seattle`
+
+            let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATION_IQ_API_KEY}&q=${this.state.city}&format=json`;
+            
             let cityData = await axios.get(url);
-            //console.log(cityData.data);
-            let returnedCity= cityData.data[0].display_name.split(",")[0];
+            let returnedCity= cityData.data[0].display_name.split(",")[0].toLowerCase();
 
             let lattitudeForCity = cityData.data[0].lat;
             let cityLongitude = cityData.data[0].lon;
             
+            
             let tempImageUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_IQ_API_KEY}&center=${lattitudeForCity},${cityLongitude}&zoom=12&size=500x500`;
-            // console.log(tempImageUrl);
-            // let newImgURL = `https://maps.locationiq.com/v3/staticmap?key={process/env.REACT_APP_LOCATION_IQ_API_KEY}=47.6062,122.3321&zoom=13`;
 
+            console.log('made it here');
             let imageDataResponce = await axios.get(tempImageUrl);
-            //console.log(imageDataResponce.config.url);
-
-            let newUrl = `https://${process.env.REACT_APP_SERVER}/weather?city=${returnedCity}`;
-            let newWeatherData = await axios.get(newUrl);
-
-            console.log(newWeatherData);
-
-
-            let movieURL = `http://${process.env.REACT_APP_SERVER}/movies?city=${returnedCity}`;
-            let returnedMovieData = await axios.get(movieURL);
-            console.log(returnedMovieData.data);
-
 
             this.setState({
                 cityData: cityData.data[0],
                 error: false,
                 simpleCityName: returnedCity, 
-                imageUrl: imageDataResponce.config.url,
-                weatherData : newWeatherData.data,
-                movieData: returnedMovieData.data
+                imageUrl: imageDataResponce.config.url
             })
+
+            this.getWeatherData(lattitudeForCity,cityLongitude);
+            this.getMovieData(returnedCity)
         } catch (error) {
-            //console.log("error retrieving info");
             this.setState({
                 error: true,
                 errorMsg: error.message
@@ -88,16 +68,42 @@ class Main extends React.Component {
         }
     };
 
+    getWeatherData = async (lat,lon) => {
+        try{
+
+            let weatherAPI = `${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`
+            let weatherData = await axios.get(weatherAPI)
+            
+            this.setState({
+                weatherData:weatherData.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    getMovieData = async(city)=>{
+        try{
+            let movieApi = `${process.env.REACT_APP_SERVER}/movies?city=${city}`;
+            let movieData = await axios.get(movieApi);
+
+            this.setState({
+                movieData: movieData.data
+            })
+
+        }catch(e){
+            console.log(e)
+        }
+    }
+
     render() {
         return (
             <>
             
             <Container >
-                <Form onSubmit={this.getAllData} >
+                <Form onSubmit={this.getCityData} >
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        {/* <Form.Label>Enter City</Form.Label> */}
                         <Form.Control
-                            // type="string"
                             type="text"
                             placeholder="Enter City Name"
                             onInput={this.handleCityInput}
