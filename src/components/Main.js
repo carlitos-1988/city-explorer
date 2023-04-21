@@ -114,15 +114,16 @@ class Main extends React.Component {
                             style={{ width: "32rem"}}
                         />
                     </Form.Group>
-                </Form>
-                    </Col>
-                </Row>
-                <Row>
                     <Col>
                     <Button variant="primary" type="submit">
                         Explore
                     </Button>
                     </Col>
+                </Form>
+                    </Col>
+                </Row>
+                <Row>
+                    
                 </Row>
             </Container>
                 
